@@ -27,10 +27,16 @@
       </form>
       <button onclick="convert()">HEJ</button>
       <script>
-        const data = getData();
+        // TODO: Skapa loop för samtliga element i array
+        // TODO: i loopen ska varje dokument exporteras till pdf
 
+        // get data from csv file
+        getData().then((data) => {
+          console.log(data);
+        });
+
+        // PDF export
         var element = document.getElementById("element-to-print");
-
         const convert = () => {
           html2pdf(element);
         };
