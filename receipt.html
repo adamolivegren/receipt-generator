@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="outer-div">
+      <div class="header">
+        <h1>Kvitto</h1>
+        <img src="2dl.png" alt="2dl-logo" class="logo" />
+      </div>
+      <div class="receipt-details">
+        <div class="default-div"><p id="company">{2dl AB}</p></div>
+        <div class="default-div"><p id="address">{Smålandsgatan 3F}</p></div>
+        <div class="default-div"><p id="org">{124435-1242}</p></div>
+        <div class="default-div"><p id="e-mail">hampus@2dl.tech</p></div>
+        <div class="default-div"><p id="phone">{0760-196688}</p></div>
+        <div class="default-div">
+          <p class="default-p">Kvitto:</p>
+          <p id="receipt-id"></p>
+        </div>
+        <div class="default-div">
+          <p class="default-p">Datum:</p>
+          <p id="date"></p>
+        </div>
+        <div class="default-div">
+          <p class="default-p">Tid:</p>
+          <p id="time"></p>
+        </div>
+        <div class="default-div">
+          <p class="default-p">VAT-nummer:</p>
+          <p id="vat-no"></p>
+        </div>
+      </div>
+      <div class="order-details">
+        <table>
+          <tr>
+            <th>Artikel</th>
+            <th>Antal</th>
+            <th>Belopp</th>
+          </tr>
+          <tr>
+            <td>{Parmesan}</td>
+            <td>{1}</td>
+            <td>{1500} SEK</td>
+          </tr>
+          <tr>
+            <td>Totalt</td>
+            <td>{1500} SEK</td>
+          </tr>
+          <tr>
+            <td>Moms {12 %}</td>
+            <td>{300} SEK</td>
+          </tr>
+        </table>
+        <div class="default-div">
+          <p class="default-p">Betalningssätt:</p>
+          <p id="payment-method">{Swish}</p>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

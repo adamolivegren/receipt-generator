@@ -1,0 +1,37 @@
+.outer-div {
+  height: 100vh;
+  padding: 10%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  row-gap: 50px;
+}
+.header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.receipt-details {
+  display: flex;
+  flex-direction: column;
+  row-gap: 10px;
+  background-color: rebeccapurple;
+}
+.order-details {
+  background-color: yellow;
+}
+.order-details table {
+  margin-bottom: 15px;
+}
+
+.default-div {
+  display: flex;
+  flex-direction: row;
+}
+p {
+  margin: 0px;
+}
+.logo {
+  max-width: 10%;
+}
