@@ -5,6 +5,16 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="styles.css" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Outfit&display=swap"
+      rel="stylesheet"
+    />
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"
+      integrity="sha512-GsLlZN/3F2ErC5ifS5QtgpiJtWd43JWSuIgh7mbzZ8zBps+dvLusV+eNQATqgA/HdeKFVgA5v3S/cIrLF7QnIg=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
   </head>
   <body>
     <div class="outer-div">
@@ -13,26 +23,30 @@
         <img src="2dl.png" alt="2dl-logo" class="logo" />
       </div>
       <div class="receipt-details">
-        <div class="default-div"><p id="company">{2dl AB}</p></div>
-        <div class="default-div"><p id="address">{Smålandsgatan 3F}</p></div>
-        <div class="default-div"><p id="org">{124435-1242}</p></div>
-        <div class="default-div"><p id="e-mail">hampus@2dl.tech</p></div>
-        <div class="default-div"><p id="phone">{0760-196688}</p></div>
-        <div class="default-div">
-          <p class="default-p">Kvitto:</p>
-          <p id="receipt-id"></p>
+        <div class="details-left">
+          <div class="default-div"><p id="company">{2dl AB}</p></div>
+          <div class="default-div"><p id="address">{Smålandsgatan 3F}</p></div>
+          <div class="default-div"><p id="org">Org. nr: {124435-1242}</p></div>
+          <div class="default-div">
+            <p class="default-p">VAT-nummer: {SE559393971201}</p>
+            <p id="vat-no"></p>
+          </div>
+          <div class="default-div"><p id="e-mail">{hampus@2dl.tech}</p></div>
+          <div class="default-div"><p id="phone">{0760-196688}</p></div>
         </div>
-        <div class="default-div">
-          <p class="default-p">Datum:</p>
-          <p id="date"></p>
-        </div>
-        <div class="default-div">
-          <p class="default-p">Tid:</p>
-          <p id="time"></p>
-        </div>
-        <div class="default-div">
-          <p class="default-p">VAT-nummer:</p>
-          <p id="vat-no"></p>
+        <div class="details-right">
+          <div class="default-div">
+            <p class="default-p">Kvitto:</p>
+            <p id="receipt-id"></p>
+          </div>
+          <div class="default-div">
+            <p class="default-p">Datum:</p>
+            <p id="date"></p>
+          </div>
+          <div class="default-div">
+            <p class="default-p">Tid:</p>
+            <p id="time"></p>
+          </div>
         </div>
       </div>
       <div class="order-details">
@@ -56,11 +70,27 @@
             <td>{300} SEK</td>
           </tr>
         </table>
-        <div class="default-div">
+        <div class="footer">
           <p class="default-p">Betalningssätt:</p>
           <p id="payment-method">{Swish}</p>
         </div>
       </div>
     </div>
+    <script>
+      const queryString = window.location.search;
+      const urlParams = new URLSearchParams(queryString);
+      const product = urlParams.get("id");
+
+      document.getElementById("receipt-id").innerHTML = product;
+
+      // PDF export
+      // let elements = document.getElementsByTagName("*");
+      let elements = document.querySelector("html");
+      const convert = () => {
+        html2pdf(elements);
+      };
+
+      convert();
+    </script>
   </body>
 </html>

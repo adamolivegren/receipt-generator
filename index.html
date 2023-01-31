@@ -7,12 +7,7 @@
       <meta http-equiv="X-UA-Compatible" content="IE=edge" />
       <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       <title>Document</title>
-      <script
-        src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"
-        integrity="sha512-GsLlZN/3F2ErC5ifS5QtgpiJtWd43JWSuIgh7mbzZ8zBps+dvLusV+eNQATqgA/HdeKFVgA5v3S/cIrLF7QnIg=="
-        crossorigin="anonymous"
-        referrerpolicy="no-referrer"
-      ></script>
+
       <style>
         @page {
           size: A4;
@@ -25,22 +20,32 @@
         <br />
         <input type="submit" value="Submit" />
       </form>
-      <button onclick="convert()">HEJ</button>
+      <button onclick="convert()">Convert</button>
       <script>
         // TODO: Skapa loop för samtliga element i array
         // TODO: i loopen ska varje dokument exporteras till pdf
 
         // get data from csv file
         getData().then((data) => {
-          //each element in data array is a receipt
-          console.log(data);
+          console.log(data[0]);
+          // TODO: Add querys
+          let url = "receipt.html?";
+          const id = data[0].receiptId;
+          const date = data[0].Datum;
+          const address = data[0].Adress;
+          const quantity = data[0].Antal;
+          const company = data[0].Company;
+          const moms = data[0].Moms;
+          const momsNo = data[0].MomsNo;
+          const momsSats = data[0].Momssats;
+          const orgNo = data[0].OrgNo;
+          const price = data[0].Pris;
+          const item = data[0].Product;
+          const time = data[0].Tid;
+          url += `id=${id}&date=${date}&address=${address}`;
+          console.log(url);
+          window.location.href = url;
         });
-
-        // PDF export
-        var element = document.getElementById("element-to-print");
-        const convert = () => {
-          html2pdf(element);
-        };
 
         async function getData() {
           // Fetch the contents of the CSV file
