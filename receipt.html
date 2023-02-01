@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="styles.css" />
     <link
-      href="https://fonts.googleapis.com/css2?family=Outfit&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Outfit&family=Questrial&display=swap"
       rel="stylesheet"
     />
     <script
@@ -26,25 +26,28 @@
         <div class="details-left">
           <div class="default-div"><p id="company">{2dl AB}</p></div>
           <div class="default-div"><p id="address">{Smålandsgatan 3F}</p></div>
-          <div class="default-div"><p id="org">Org. nr: {124435-1242}</p></div>
           <div class="default-div">
-            <p class="default-p">VAT-nummer: {SE559393971201}</p>
-            <p id="vat-no"></p>
+            <p class="default-p">Org. nr:&nbsp;</p>
+            <p id="orgNo">Org. nr: {124435-1242}</p>
           </div>
-          <div class="default-div"><p id="e-mail">{hampus@2dl.tech}</p></div>
+          <div class="default-div">
+            <p class="default-p">VAT-nummer:&nbsp;</p>
+            <p id="momsNo"></p>
+          </div>
+          <div class="default-div"><p id="email">{hampus@2dl.tech}</p></div>
           <div class="default-div"><p id="phone">{0760-196688}</p></div>
         </div>
         <div class="details-right">
           <div class="default-div">
-            <p class="default-p">Kvitto:</p>
-            <p id="receipt-id"></p>
+            <p class="default-p">Kvitto:&nbsp;</p>
+            <p id="id"></p>
           </div>
           <div class="default-div">
-            <p class="default-p">Datum:</p>
+            <p class="default-p">Datum:&nbsp;</p>
             <p id="date"></p>
           </div>
           <div class="default-div">
-            <p class="default-p">Tid:</p>
+            <p class="default-p">Tid:&nbsp;</p>
             <p id="time"></p>
           </div>
         </div>
@@ -57,37 +60,69 @@
             <th>Belopp</th>
           </tr>
           <tr>
-            <td>{Parmesan}</td>
-            <td>{1}</td>
-            <td>{1500} SEK</td>
+            <td id="item">{Parmesan}</td>
+            <td id="quantity">{1}</td>
+            <td id="price">{1500} SEK</td>
           </tr>
           <tr>
             <td>Totalt</td>
-            <td>{1500} SEK</td>
+            <td></td>
+            <td id="total">{1500} SEK</td>
           </tr>
           <tr>
-            <td>Moms {12 %}</td>
-            <td>{300} SEK</td>
+            <td id="moms">Moms {12 %}</td>
+            <td></td>
+            <td id="momsTotal">{300} SEK</td>
           </tr>
         </table>
         <div class="footer">
-          <p class="default-p">Betalningssätt:</p>
-          <p id="payment-method">{Swish}</p>
+          <p class="default-p">Betalningssätt:&nbsp;</p>
+          <p id="paymentMethod">{Swish}</p>
         </div>
       </div>
     </div>
     <script>
       const queryString = window.location.search;
       const urlParams = new URLSearchParams(queryString);
-      const product = urlParams.get("id");
+      const id = urlParams.get("id");
+      const date = urlParams.get("date");
+      const address = urlParams.get("address");
+      const quantity = urlParams.get("quantity");
+      const company = urlParams.get("company");
+      const email = urlParams.get("email");
+      const phone = urlParams.get("phone");
+      const momsNo = urlParams.get("momsNo");
+      const momsSats = urlParams.get("momsSats");
+      const orgNo = urlParams.get("orgNo");
+      const price = parseFloat(urlParams.get("price"));
+      const item = urlParams.get("item");
+      const time = urlParams.get("time");
+      const paymentMethod = urlParams.get("paymentMethod");
+      const total = parseFloat(quantity) * parseFloat(price);
+      const moms = total / (1 + momsSats);
 
-      document.getElementById("receipt-id").innerHTML = product;
+      document.getElementById("id").innerHTML = id;
+      document.getElementById("date").innerHTML = date;
+      document.getElementById("quantity").innerHTML = quantity;
+      document.getElementById("company").innerHTML = company;
+      document.getElementById("email").innerHTML = email;
+      document.getElementById("phone").innerHTML = phone;
+      document.getElementById("address").innerHTML = address;
+      document.getElementById("moms").innerHTML = `Moms (${momsSats * 100} %)`;
+      document.getElementById("momsTotal").innerHTML = moms.toFixed(2) + " SEK";
+      document.getElementById("momsNo").innerHTML = momsNo;
+      document.getElementById("orgNo").innerHTML = orgNo;
+      document.getElementById("item").innerHTML = item;
+      document.getElementById("price").innerHTML = price.toFixed(2) + " SEK";
+      document.getElementById("total").innerHTML = total.toFixed(2) + " SEK";
+      document.getElementById("time").innerHTML = time;
+      document.getElementById("paymentMethod").innerHTML = paymentMethod;
 
       // PDF export
-      // let elements = document.getElementsByTagName("*");
       let elements = document.querySelector("html");
       const convert = () => {
-        html2pdf(elements);
+        // html2pdf(elements);
+        html2pdf().set().from(elements).save(`${id}.pdf`);
       };
 
       convert();

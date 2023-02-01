@@ -1,9 +1,11 @@
 * {
-  font-family: "Outfit", sans-serif;
+  font-family: "Questrial", sans-serif;
 }
 .outer-div {
-  height: 100vh;
-  padding: 10%;
+  /* height: 100vh; */
+  padding-left: 10%;
+  padding-right: 10%;
+  padding-top: 10%;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
@@ -20,7 +22,7 @@
   flex-direction: row;
   justify-content: flex-start;
   align-items: flex-start;
-  column-gap: 350px;
+  column-gap: 50px;
   padding-bottom: 40px;
   border-bottom: 1px solid #000;
 }
@@ -47,9 +49,15 @@
 }
 
 th {
-  width: 150px;
+  width: 200px;
   text-align: left;
   font-weight: bold !important;
+  padding-bottom: 5px;
+}
+td {
+  padding-bottom: 5px;
+  padding-top: 5px;
+  color: #51555a;
 }
 p {
   margin: 0px;

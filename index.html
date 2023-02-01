@@ -18,41 +18,55 @@
       <form id="form">
         <input type="file" id="file" accept=".csv" />
         <br />
-        <input type="submit" value="Submit" />
       </form>
-      <button onclick="convert()">Convert</button>
+      <button onclick="convert()">Submit</button>
       <script>
-        // TODO: Skapa loop för samtliga element i array
-        // TODO: i loopen ska varje dokument exporteras till pdf
-
-        // get data from csv file
-        getData().then((data) => {
-          console.log(data[0]);
-          // TODO: Add querys
-          let url = "receipt.html?";
-          const id = data[0].receiptId;
-          const date = data[0].Datum;
-          const address = data[0].Adress;
-          const quantity = data[0].Antal;
-          const company = data[0].Company;
-          const moms = data[0].Moms;
-          const momsNo = data[0].MomsNo;
-          const momsSats = data[0].Momssats;
-          const orgNo = data[0].OrgNo;
-          const price = data[0].Pris;
-          const item = data[0].Product;
-          const time = data[0].Tid;
-          url += `id=${id}&date=${date}&address=${address}`;
-          console.log(url);
-          window.location.href = url;
+        let csvFile;
+        const input = document.querySelector("input[type=file]");
+        input.addEventListener("change", function () {
+          const file = this.files[0];
+          const reader = new FileReader();
+          reader.onload = function () {
+            csvFile = reader.result;
+          };
+          reader.readAsText(file);
         });
+
+        function convert() {
+          // get data from csv file
+          getData().then((data) => {
+            let url = "receipt.html?";
+            data.forEach((i) => {
+              if (i.receiptId) {
+                let id = i.receiptId;
+                let date = i.Datum;
+                let address = i.Adress;
+                let quantity = i.Antal;
+                let company = i.Company;
+                let email = i.email;
+                let phone = i.phone;
+                let momsNo = i.momsNo;
+                let momsSats = i.Momssats;
+                let orgNo = i.OrgNo;
+                let price = i.Pris;
+                let item = i.Product;
+                let time = i.Tid;
+                let paymentMethod = i.paymentMethod;
+                url += `id=${id}&date=${date}&address=${address}&quantity=${quantity}&company=${company}&email=${email}&phone=${phone}&momsNo=${momsNo}&momsSats=${momsSats}&orgNo=${orgNo}&price=${price}&item=${item}&time=${time}&paymentMethod=${paymentMethod}`;
+                window.open(url, "_blank");
+                url = "receipt.html?";
+              }
+            });
+          });
+        }
 
         async function getData() {
           // Fetch the contents of the CSV file
-          const response = await fetch("kvitton.csv");
+          // const response = await fetch(csvFile);
 
           // Get the contents of the file as a string
-          const csvString = await response.text();
+          // const csvString = await response.text();
+          const csvString = csvFile;
 
           // Split the string into an array of lines
           const lines = csvString.split("\n");
